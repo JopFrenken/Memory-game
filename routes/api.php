@@ -16,8 +16,5 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::group(['middleware' => ['web']], function () {
-    Route::get('/user', [UserController::class, 'get']);
-    Route::post('/user', [UserController::class, 'set']);
-    Route::post('/guess', [UserController::class, 'guess']);
-    Route::patch('/sendguess', [UserController::class, 'sendGuess']);
+    //
 });
