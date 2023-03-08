@@ -12,16 +12,14 @@
 <script>
 export default {
     props: {
-        'image': String
-    },
-
-    mounted(){
-        console.log(this.image);
+        'image': String,
+        'dataCard': String
     },
 
     data() {
         return {
-            isFlipped: false
+            isFlipped: false,
+            count: 0,
         }
     },
 
