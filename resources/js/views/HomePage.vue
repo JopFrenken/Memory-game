@@ -78,15 +78,10 @@ export default {
             this.clickedEl.push(event.target.parentNode);
 
             if (this.dataArr.length === 2) {
-                // $('selector').click(false);
                 if (allEqual(this.dataArr)) {
                     this.clickedEl.forEach((ele) => {
                         // ele.style.display = "none";
                     });
-
-                    // this.clickedEl.forEach((element) => {
-                    // 	element.classList.remove('flipped');
-                    // })
                     console.log("the same");
                 } else if (!allEqual(this.dataArr)) {
                     setTimeout(() => {
@@ -96,10 +91,6 @@ export default {
                         });
                         this.clickedEl = [];
                     }, 1000);
-
-                    // this.clickedEl.forEach((element) => {
-                    // 	element.classList.remove('flipped')
-                    // })
                     console.log("not the same");
                 }
                 this.dataArr = [];

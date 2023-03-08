@@ -1,9 +1,9 @@
 <template>
     <div class="flip-card" @click="flip">
-        <div class="flip-card-inner" :class="{ 'flipped': isFlipped }">
+        <div class="flip-card-inner" :class="{ flipped: isFlipped }">
             <div class="flip-card-front"></div>
             <div class="flip-card-back">
-                <img :src="image" alt="memory-card">
+                <img :src="image" alt="memory-card" />
             </div>
         </div>
     </div>
@@ -12,23 +12,23 @@
 <script>
 export default {
     props: {
-        'image': String,
-        'dataCard': String
+        image: String,
+        dataCard: String,
     },
 
     data() {
         return {
             isFlipped: false,
             count: 0,
-        }
+        };
     },
 
     methods: {
         flip() {
             this.isFlipped = !this.isFlipped;
-        }
-    }
-}
+        },
+    },
+};
 </script>
 
 <style>
