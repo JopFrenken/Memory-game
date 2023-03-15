@@ -7,7 +7,7 @@
                     v-for="(card, index) in randomizeArray"
                     :key="index"
                     :image="card.image"
-                    :dataCard="card.data"
+                    :data-card="card.data"
                     @click="flipCard(card.data, $event)"
                 />
             </div>
@@ -71,32 +71,23 @@ export default {
     methods: {
         // handles the flip logic
         flipCard(data, event) {
-            let allcards = document.querySelectorAll(".flip-card");
-            allcards.forEach((el) => {
-                console.log(el);
-            });
+            let allCards = document.querySelectorAll(".flip-card");
+
+            // Add flipped style to event
+            event.target.classList.add("flipped");
+
+            // Get all Flipped cards
+            let allFlippedCards = document.querySelectorAll(".flipped");
             this.dataArr.push(data);
-            // checks if items in array are equal
-            const allEqual = (arr) => arr.every((val) => val === arr[0]);
 
-            this.clickedEl.push(event.target.parentNode);
-
-            if (this.dataArr.length === 2) {
-                if (allEqual(this.dataArr)) {
-                    this.clickedEl.forEach((ele) => {
-                        // ele.style.display = "none";
-                    });
+            if (allFlippedCards.length === 2) {
+                // Make the rest of the cards not clickable.
+                if (this.dataArr[0] === this.dataArr[1]) {
                     console.log("the same");
-                } else if (!allEqual(this.dataArr)) {
-                    setTimeout(() => {
-                        this.clickedEl.forEach((e) => {
-                            e.classList.remove("flipped");
-                        });
-                        this.clickedEl = [];
-                    }, 1000);
-                    console.log("not the same");
+                } else {
+                    console.log("ea");
                 }
-                this.dataArr = [];
+                console.log(allFlippedCards);
             }
         },
     },
