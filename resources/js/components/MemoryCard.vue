@@ -1,5 +1,5 @@
 <template>
-    <div class="flip-card" @click="flip">
+    <div class="flip-card">
         <div class="flip-card-front"></div>
         <div class="flip-card-back">
             <img :src="image" alt="memory-card" />
@@ -15,15 +15,8 @@ export default {
 
     data() {
         return {
-            isFlipped: false,
             count: 0,
         };
-    },
-
-    methods: {
-        flip() {
-            this.isFlipped = !this.isFlipped;
-        },
     },
 };
 </script>
@@ -65,7 +58,7 @@ export default {
     height: 100%;
     background-color: rgb(162, 219, 229);
     color: white;
-    /* transform: rotateY(180deg); */
+    transform: rotateY(180deg);
     display: flex;
     align-content: center;
     justify-content: center;

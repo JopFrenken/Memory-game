@@ -71,23 +71,33 @@ export default {
     methods: {
         // handles the flip logic
         flipCard(data, event) {
-            let allCards = document.querySelectorAll(".flip-card");
+            // prevent clicking on other cards while flipping
+            if (
+                this.dataArr.length < 2 &&
+                !event.target.classList.contains("flipped")
+            ) {
+                event.target.classList.add("flipped");
 
-            // Add flipped style to event
-            event.target.classList.add("flipped");
+                // Get all Flipped cards
+                let allFlippedCards = document.querySelectorAll(".flipped");
 
-            // Get all Flipped cards
-            let allFlippedCards = document.querySelectorAll(".flipped");
-            this.dataArr.push(data);
+                // add the data to compare it later
+                this.dataArr.push(data);
 
-            if (allFlippedCards.length === 2) {
-                // Make the rest of the cards not clickable.
-                if (this.dataArr[0] === this.dataArr[1]) {
-                    console.log("the same");
-                } else {
-                    console.log("ea");
+                if (allFlippedCards.length === 2) {
+                    // Code for if they're the same card
+                    if (this.dataArr[0] === this.dataArr[1]) {
+                        console.log("same");
+                    } else {
+                        // Remove flipped class from all flipped cards
+                        setTimeout(() => {
+                            allFlippedCards.forEach((card) =>
+                                card.classList.remove("flipped")
+                            );
+                            this.dataArr = [];
+                        }, 1000);
+                    }
                 }
-                console.log(allFlippedCards);
             }
         },
     },
