@@ -71,6 +71,10 @@ export default {
     methods: {
         // handles the flip logic
         flipCard(data, event) {
+            let allcards = document.querySelectorAll(".flip-card");
+            allcards.forEach((el) => {
+                console.log(el);
+            });
             this.dataArr.push(data);
             // checks if items in array are equal
             const allEqual = (arr) => arr.every((val) => val === arr[0]);
@@ -87,7 +91,6 @@ export default {
                     setTimeout(() => {
                         this.clickedEl.forEach((e) => {
                             e.classList.remove("flipped");
-                            console.log(e);
                         });
                         this.clickedEl = [];
                     }, 1000);
