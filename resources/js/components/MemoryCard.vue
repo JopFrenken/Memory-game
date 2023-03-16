@@ -34,7 +34,8 @@ export default {
     transform-style: preserve-3d;
 }
 
-.flip-card.flipped {
+.flip-card.flipped,
+.flip-card.found {
     pointer-events: none;
     transform: rotateY(180deg);
 }

@@ -1,8 +1,11 @@
 <template>
     <div class="page-container">
         <div class="highscores-container"></div>
-        <div class="card-grid">
-            <div class="memory-game card-container">
+        <div class="card-grid d-flex flex-column">
+            <span class="timer mb-5"
+                ><Stopwatch :start="startedGame"></Stopwatch
+            ></span>
+            <div class="memory-game card-container mt-3">
                 <MemoryCard
                     v-for="(card, index) in randomizeArray"
                     :key="index"
@@ -19,6 +22,7 @@
 import router from "../router";
 import { useToast } from "vue-toastification";
 import MemoryCard from "../components/MemoryCard.vue";
+import Stopwatch from "../components/Stopwatch.vue";
 export default {
     data() {
         return {
@@ -47,11 +51,13 @@ export default {
             dataArr: [],
             clickedEl: [],
             isFlipped: false,
+            startedGame: false,
         };
     },
 
     components: {
         MemoryCard,
+        Stopwatch,
     },
 
     computed: {
@@ -71,13 +77,14 @@ export default {
     methods: {
         // handles the flip logic
         flipCard(data, event) {
+            let allFoundCards = document.querySelectorAll(".found");
+            this.startedGame = true;
             // prevent clicking on other cards while flipping
             if (
                 this.dataArr.length < 2 &&
                 !event.target.classList.contains("flipped")
             ) {
                 event.target.classList.add("flipped");
-
                 // Get all Flipped cards
                 let allFlippedCards = document.querySelectorAll(".flipped");
 
@@ -87,7 +94,19 @@ export default {
                 if (allFlippedCards.length === 2) {
                     // Code for if they're the same card
                     if (this.dataArr[0] === this.dataArr[1]) {
-                        console.log("same");
+                        allFlippedCards.forEach((card) => {
+                            // so the game continues if 1 pair is found
+                            card.classList.add("found");
+                            card.classList.remove("flipped");
+                        });
+                        this.dataArr = [];
+                        let allFoundCards = document.querySelectorAll(".found");
+                        if (allFoundCards.length === 20) {
+                            setTimeout(() => {
+                                alert("YOOOO");
+                            }, 1000);
+                            this.startedGame = false;
+                        }
                     } else {
                         // Remove flipped class from all flipped cards
                         setTimeout(() => {
