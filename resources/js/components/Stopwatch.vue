@@ -34,21 +34,6 @@ export default {
         },
     },
 
-    methods: {
-        // Starts timer with milliseconds
-        startTimer() {
-            this.startTime = new Date();
-            this.timer = setInterval(() => {
-                this.currentTime = new Date();
-            }, 10);
-        },
-
-        // clears timer and sets it to 0
-        stopTimer() {
-            clearInterval(this.timer);
-        },
-    },
-
     computed: {
         // Formats the time in: min:sec:ms
         formattedTime() {
@@ -77,6 +62,21 @@ export default {
                 "." +
                 ("00" + milliseconds).slice(-3)
             );
+        },
+    },
+
+    methods: {
+        // Starts timer with milliseconds
+        startTimer() {
+            this.startTime = new Date();
+            this.timer = setInterval(() => {
+                this.currentTime = new Date();
+            }, 10);
+        },
+
+        // clears timer and sets it to 0
+        stopTimer() {
+            clearInterval(this.timer);
         },
     },
 };

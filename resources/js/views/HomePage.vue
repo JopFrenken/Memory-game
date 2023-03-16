@@ -1,6 +1,7 @@
 <template>
     <div class="page-container">
         <div class="highscores-container"></div>
+        <button @click="test()">ee</button>
         <div class="card-grid d-flex flex-column">
             <span class="timer mb-5"
                 ><Stopwatch :start="startedGame"></Stopwatch
@@ -16,6 +17,7 @@
             </div>
         </div>
     </div>
+    <WonGameModal></WonGameModal>
 </template>
 
 <script>
@@ -23,6 +25,7 @@ import router from "../router";
 import { useToast } from "vue-toastification";
 import MemoryCard from "../components/MemoryCard.vue";
 import Stopwatch from "../components/Stopwatch.vue";
+import WonGameModal from "../components/WonGameModal.vue";
 export default {
     data() {
         return {
@@ -58,6 +61,7 @@ export default {
     components: {
         MemoryCard,
         Stopwatch,
+        WonGameModal,
     },
 
     computed: {
@@ -72,9 +76,16 @@ export default {
         },
     },
 
-    mounted() {},
+    mounted() {
+        if (document.querySelector(".modal-backdrop") != null) {
+            document.querySelector(".modal-backdrop").remove();
+        }
+    },
 
     methods: {
+        test() {
+            $(".wonmodal").modal("show");
+        },
         // handles the flip logic
         flipCard(data, event) {
             let allFoundCards = document.querySelectorAll(".found");
