@@ -1,6 +1,6 @@
 <template>
     <div class="stopwatch">
-        <span class="time">{{ formattedTime }}</span>
+        <span class="time h1">{{ formattedTime }}</span>
     </div>
 </template>
 
@@ -16,6 +16,7 @@ export default {
             startTime: null,
             currentTime: null,
             timer: null,
+            timeElapsed: null,
         };
     },
 
@@ -43,16 +44,16 @@ export default {
             }
 
             // Calculate time elapsed in milliseconds
-            const timeElapsed = this.currentTime - this.startTime;
+            this.timeElapsed = this.currentTime - this.startTime;
 
             // Convert milliseconds to minutes
             const minutes = Math.floor(
-                (timeElapsed % (1000 * 60 * 60)) / (1000 * 60)
+                (this.timeElapsed % (1000 * 60 * 60)) / (1000 * 60)
             );
 
             // milliseconds to seconds
-            const seconds = Math.floor((timeElapsed % (1000 * 60)) / 1000);
-            const milliseconds = Math.floor(timeElapsed % 1000);
+            const seconds = Math.floor((this.timeElapsed % (1000 * 60)) / 1000);
+            const milliseconds = Math.floor(this.timeElapsed % 1000);
 
             // Concatenate the minutes, seconds and milliseconds and return the formatted string
             return (
@@ -83,5 +84,9 @@ export default {
 </script>
 
 <style>
-/* future styles */
+    @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
+
+    .time {
+        font-family: 'Share Tech Mono', monospace;
+    }
 </style>

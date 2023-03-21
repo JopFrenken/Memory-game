@@ -1,11 +1,33 @@
 <template>
-    <div class="page-container">
-        <div class="highscores-container"></div>
-        <button @click="test()">ee</button>
+    <div class="top-page-container  mt-5 d-flex justify-content-around">
+        &nbsp;
+        <span class="timer d-flex justify-content-center">
+            <Stopwatch ref="stopwatch" :start="startedGame"></Stopwatch>
+        </span>
+        <button class="btn btn-warning" @click="resetGame()">Reset</button>
+    </div>
+    <div class="page-container d-flex    justify-content-around">
+        <div class="highscores-container d-flex flex-column justify-content-center align-items-center">
+            <table class="table align-middle">
+                <thead class="table-dark">
+                    <tr>
+                        <th>#</th>
+                        <th>name</th>
+                        <th>clicks</th>
+                        <th>time</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="(score, index) in allScores" :key="index" class="mx-3">
+                        <th>{{ index + 1 }}</th>
+                        <th>{{ score.name }}</th>
+                        <th>{{ score.clicks }}</th>
+                        <th>{{ score.elapsed_time / 1000 }}</th>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
         <div class="card-grid d-flex flex-column">
-            <span class="timer mb-5"
-                ><Stopwatch :start="startedGame"></Stopwatch
-            ></span>
             <div class="memory-game card-container mt-3">
                 <MemoryCard
                     v-for="(card, index) in randomizeArray"
@@ -17,12 +39,14 @@
             </div>
         </div>
     </div>
-    <WonGameModal></WonGameModal>
+    <WonGameModal :clicked="clicked" @send-data="sendData"></WonGameModal>
 </template>
 
 <script>
 import router from "../router";
 import { useToast } from "vue-toastification";
+const toast = useToast();
+import gameApi from "../api/game";
 import MemoryCard from "../components/MemoryCard.vue";
 import Stopwatch from "../components/Stopwatch.vue";
 import WonGameModal from "../components/WonGameModal.vue";
@@ -55,6 +79,8 @@ export default {
             clickedEl: [],
             isFlipped: false,
             startedGame: false,
+            clicked: 0,
+            allScores: [],
         };
     },
 
@@ -77,17 +103,20 @@ export default {
     },
 
     mounted() {
+        this.clicked = 0;
         if (document.querySelector(".modal-backdrop") != null) {
             document.querySelector(".modal-backdrop").remove();
         }
+
+        this.getScores();
+
+        console.log(this.allScores);
     },
 
     methods: {
-        test() {
-            $(".wonmodal").modal("show");
-        },
         // handles the flip logic
         flipCard(data, event) {
+            this.clicked++;
             let allFoundCards = document.querySelectorAll(".found");
             this.startedGame = true;
             // prevent clicking on other cards while flipping
@@ -113,8 +142,9 @@ export default {
                         this.dataArr = [];
                         let allFoundCards = document.querySelectorAll(".found");
                         if (allFoundCards.length === 20) {
+                            // timeout to finish the flip animation
                             setTimeout(() => {
-                                alert("YOOOO");
+                                $(".wonmodal").modal("show");
                             }, 1000);
                             this.startedGame = false;
                         }
@@ -130,11 +160,67 @@ export default {
                 }
             }
         },
+
+        sendData(name) {
+            gameApi
+                .sendGameData(
+                    name,
+                    this.clicked,
+                    this.$refs.stopwatch.timeElapsed
+                )
+                .then((res) => {
+                    toast.success(res.data.msg);
+                    this.resetGame();
+                    this.allScores = [];
+                    this.getScores();
+                })
+                .catch((e) => {
+                    toast.error(e);
+                });
+        },
+
+        // resets the all game mechanics
+        resetGame() {
+            let allFoundCards = document.querySelectorAll(".found");
+            let allFlippedCards = document.querySelectorAll(".flipped");
+            allFlippedCards.forEach((element) => {
+                element.classList.remove("flipped");
+            });
+            allFoundCards.forEach((element) => {
+                element.classList.remove("found");
+            });
+            $(".wonmodal").modal("hide");
+
+            this.$refs.stopwatch.currentTime = 0;
+            this.$refs.stopwatch.startTime = 0;
+            
+            setTimeout(() => {
+                this.cards = this.randomizeArray;
+                this.dataArr = [];
+                this.clickedEl = [];
+                this.isFlipped = false;
+                this.startedGame = false;
+                this.clicked = 0;
+
+            }, 1000);
+        },
+
+        getScores() {
+            gameApi.getScores().then((res) => {
+                res.data.scores.forEach((element) => {
+                    this.allScores.push(element);
+                });
+            });
+        },
     },
 };
 </script>
 
 <style>
+
+body {
+    overflow: hidden;
+}
 .card-grid {
     display: flex;
     align-items: center;

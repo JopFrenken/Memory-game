@@ -9,6 +9,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">You won!</h5>
+                    <span>Clicks: {{ clicked }}</span>
                 </div>
                 <div class="modal-body">
                     <label for="score">Please fill in your name</label>
@@ -16,13 +17,13 @@
                         type="text"
                         name="score"
                         id="score"
-                        class="form-control mt-3"
+                        class="form-control mt-3 input-name"
                         v-model="name"
                     />
                 </div>
                 <div class="modal-footer">
                     <a class="btn btn-primary" @click="saveScore()"
-                        >Save score</a
+                        >Save score & restart game</a
                     >
                 </div>
             </div>
@@ -31,7 +32,14 @@
 </template>
 
 <script>
+import gameApi from "../api/game";
 export default {
+    props: {
+        clicked: {
+            type: Number,
+        },
+    },
+
     data() {
         return {
             name: "",
@@ -41,7 +49,8 @@ export default {
     methods: {
         saveScore() {
             if (this.name !== "") {
-                console.log(this.name);
+                this.$emit("send-data", this.name);
+                document.querySelector('.input-name').textContent = "";
             }
         },
     },
