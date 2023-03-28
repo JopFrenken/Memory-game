@@ -10,10 +10,10 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 
 class ScoreController extends Controller
 {
-    // gets the top 5 scores sorted by time
+    // gets the top scores sorted by time
     public function index() : JsonResponse
     {
-        $scores = Score::orderBy('elapsed_time')->limit(5)->get();
+        $scores = Score::orderBy('elapsed_time')->limit(10)->get();
         return response()->json(['scores' => $scores]);
     }
 

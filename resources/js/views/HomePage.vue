@@ -1,41 +1,45 @@
 <template>
-    <div class="top-page-container  mt-5 d-flex justify-content-around">
-        &nbsp;
-        <span class="timer d-flex justify-content-center">
-            <Stopwatch ref="stopwatch" :start="startedGame"></Stopwatch>
-        </span>
-        <button class="btn btn-warning" @click="resetGame()">Reset</button>
-    </div>
-    <div class="page-container d-flex    justify-content-around">
-        <div class="highscores-container d-flex flex-column justify-content-center align-items-center">
-            <table class="table align-middle">
-                <thead class="table-dark">
-                    <tr>
-                        <th>#</th>
-                        <th>name</th>
-                        <th>clicks</th>
-                        <th>time</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr v-for="(score, index) in allScores" :key="index" class="mx-3">
-                        <th>{{ index + 1 }}</th>
-                        <th>{{ score.name }}</th>
-                        <th>{{ score.clicks }}</th>
-                        <th>{{ score.elapsed_time / 1000 }}</th>
-                    </tr>
-                </tbody>
-            </table>
+    <div class="page-container container-fluid">
+        <div class="top-page-container  mt-5 d-flex justify-content-md-around row flex-column flex-md-row">
+            <span class="col">&nbsp;</span>
+            <span class="timer d-flex justify-content-center col">
+                <Stopwatch ref="stopwatch" :start="startedGame"></Stopwatch>
+            </span>
+            <div class="button-container col d-flex justify-content-center mt-4 mt-md-0">
+                <button class="reset-btn text-light w-50 h-100" @click="resetGame()">Reset</button>
+            </div>
         </div>
-        <div class="card-grid d-flex flex-column">
-            <div class="memory-game card-container mt-3">
-                <MemoryCard
-                    v-for="(card, index) in randomizeArray"
-                    :key="index"
-                    :image="card.image"
-                    :data-card="card.data"
-                    @click="flipCard(card.data, $event)"
-                />
+        <div class="page-container d-flex justify-content-around row">
+            <div class="highscores-container d-md-flex flex-column justify-content-center align-items-center col-3 ms-5 d-none ">
+                <table class="table align-middle">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>#</th>
+                            <th>name</th>
+                            <th>clicks</th>
+                            <th>time</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="(score, index) in allScores" :key="index" class="mx-3 bg-white">
+                            <th>{{ index + 1 }}</th>
+                            <th>{{ score.name }}</th>
+                            <th>{{ score.clicks }}</th>
+                            <th>{{ score.elapsed_time / 1000 }}</th>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="card-grid d-flex flex-column col align-items-center justify-content-md-center justify-content-start mt-md-0 mt-5">
+                <div class="memory-game card-container mt-md-3 mt-0">
+                    <MemoryCard
+                        v-for="(card, index) in randomizeArray"
+                        :key="index"
+                        :image="card.image"
+                        :data-card="card.data"
+                        @click="flipCard(card.data, $event)"
+                    />
+                </div>
             </div>
         </div>
     </div>
@@ -54,26 +58,26 @@ export default {
     data() {
         return {
             cards: [
-                { image: "img/triforce.png", data: "zelda" },
-                { image: "img/mario.webp", data: "mario" },
-                { image: "img/kirby.webp", data: "kirby" },
-                { image: "img/portal.png", data: "portal" },
-                { image: "img/gta.png", data: "gta" },
-                { image: "img/smash.png", data: "smash" },
-                { image: "img/sonic.png", data: "sonic" },
-                { image: "img/pokeball.png", data: "pokemon" },
-                { image: "img/mk.png", data: "mk" },
-                { image: "img/metroid.png", data: "metroid" },
-                { image: "img/triforce.png", data: "zelda" },
-                { image: "img/mario.webp", data: "mario" },
-                { image: "img/kirby.webp", data: "kirby" },
-                { image: "img/portal.png", data: "portal" },
-                { image: "img/gta.png", data: "gta" },
-                { image: "img/smash.png", data: "smash" },
-                { image: "img/sonic.png", data: "sonic" },
-                { image: "img/pokeball.png", data: "pokemon" },
-                { image: "img/mk.png", data: "mk" },
-                { image: "img/metroid.png", data: "metroid" },
+                { image: "img/zelda.png", data: "zelda" },
+                { image: "img/mario.png", data: "mario" },
+                { image: "img/gaiden.png", data: "gaiden" },
+                { image: "img/megaman.png", data: "megaman" },
+                { image: "img/duck.png", data: "duckhunt" },
+                { image: "img/sans.webp", data: "undertale" },
+                { image: "img/btoad.webp", data: "battletoads" },
+                { image: "img/pikachu.png", data: "pokemon" },
+                { image: "img/ness.webp", data: "earthbound" },
+                { image: "img/drmario.png", data: "drmario" },
+                { image: "img/zelda.png", data: "zelda" },
+                { image: "img/mario.png", data: "mario" },
+                { image: "img/gaiden.png", data: "gaiden" },
+                { image: "img/megaman.png", data: "megaman" },
+                { image: "img/duck.png", data: "duckhunt" },
+                { image: "img/sans.webp", data: "undertale" },
+                { image: "img/btoad.webp", data: "battletoads" },
+                { image: "img/pikachu.png", data: "pokemon" },
+                { image: "img/ness.webp", data: "earthbound" },
+                { image: "img/drmario.png", data: "drmario" },
             ],
             dataArr: [],
             clickedEl: [],
@@ -214,24 +218,4 @@ export default {
         },
     },
 };
-</script>
-
-<style>
-
-body {
-    overflow: hidden;
-}
-.card-grid {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-}
-
-.card-container {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    grid-template-rows: repeat(4, 1fr);
-    gap: 10px;
-}
-</style>
+</script>>

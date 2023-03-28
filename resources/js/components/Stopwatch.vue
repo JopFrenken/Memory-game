@@ -1,6 +1,6 @@
 <template>
     <div class="stopwatch">
-        <span class="time h1">{{ formattedTime }}</span>
+        <span class="time h1 text-light">{{ formattedTime }}</span>
     </div>
 </template>
 
@@ -82,11 +82,3 @@ export default {
     },
 };
 </script>
-
-<style>
-    @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
-
-    .time {
-        font-family: 'Share Tech Mono', monospace;
-    }
-</style>

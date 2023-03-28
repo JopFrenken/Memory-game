@@ -1,0 +1,59 @@
+/* The flip card container */
+.flip-card {
+    background-color: transparent;
+    width: 150px;
+    height: 120px;
+    perspective: 1000px;
+    position: relative;
+    text-align: center;
+    transition: transform 0.8s;
+    transform-style: preserve-3d;
+}
+
+.flip-card.flipped,
+.flip-card.found {
+    pointer-events: none;
+    transform: rotateY(180deg);
+}
+
+/* Position the front side */
+.flip-card-front {
+    position: absolute;
+    pointer-events: none;
+    width: 100%;
+    height: 100%;
+    background: #e591ff url('https://www.101computing.net/wp/wp-content/uploads/spaceInvader.png');
+    background-size: 95%;
+    background-position: center;
+    background-repeat: no-repeat;
+    color: black;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    border-radius: 5px;
+}
+
+/* Position the back side */
+.flip-card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: #e591ff;
+    color: white;
+    transform: rotateY(180deg);
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    padding: 15px;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    border-radius: 5px;
+}
+
+@media (max-width: 768px) {
+    .flip-card {
+        width: 60px;
+        height: 70px;
+
+
+    }
+}

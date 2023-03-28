@@ -17,6 +17,7 @@
                         type="text"
                         name="score"
                         id="score"
+                        maxlength="20"
                         class="form-control mt-3 input-name"
                         v-model="name"
                     />
@@ -56,5 +57,3 @@ export default {
     },
 };
 </script>
-
-<style></style>
