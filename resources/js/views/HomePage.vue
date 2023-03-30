@@ -1,18 +1,31 @@
 <template>
     <div class="page-container container-fluid">
         <div class="top-page-container  mt-5 d-flex justify-content-md-around row flex-column flex-md-row">
-            <span class="col">&nbsp;</span>
+            <div class="button-container col d-flex justify-content-center mt-4 mt-md-0">
+                    <button class="lb-button text-light w-50 h-100" @click="toggleLb()">Leaderboard</button>
+                </div>
             <span class="timer d-flex justify-content-center col">
-                <Stopwatch ref="stopwatch" :start="startedGame"></Stopwatch>
+                <Stopwatch ref="stopwatch" :start="startedGame" v-if="isGame"></Stopwatch>
             </span>
             <div class="button-container col d-flex justify-content-center mt-4 mt-md-0">
-                <button class="reset-btn text-light w-50 h-100" @click="resetGame()">Reset</button>
+                <button class="reset-btn text-light w-50 h-100" @click="resetGame()" v-if="isGame">Reset</button>
             </div>
         </div>
         <div class="page-container d-flex justify-content-around row">
-            <div class="highscores-container d-md-flex flex-column justify-content-center align-items-center col-3 ms-5 d-none ">
-                <table class="table align-middle">
-                    <thead class="table-dark">
+            <div class="card-grid d-flex flex-column col align-items-center justify-content-md-center justify-content-start mt-md-0 mt-5" v-if="isGame">
+                    <div class="memory-game card-container mt-md-3 mt-0">
+                        <MemoryCard
+                            v-for="(card, index) in randomizeArray"
+                            :key="index"
+                            :image="card.image"
+                            :data-card="card.data"
+                            @click="flipCard(card.data, $event)"
+                        />
+                    </div>
+                </div>
+            <div class="highscores-container d-md-flex flex-column justify-content-center align-items-center col-3 ms-5 d-none" v-else>
+                <table class="table align-middle highscore-table mt-5">
+                    <thead class="thead">
                         <tr>
                             <th>#</th>
                             <th>name</th>
@@ -21,7 +34,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="(score, index) in allScores" :key="index" class="mx-3 bg-white">
+                        <tr v-for="(score, index) in allScores" :key="index" class="mx-3">
                             <th>{{ index + 1 }}</th>
                             <th>{{ score.name }}</th>
                             <th>{{ score.clicks }}</th>
@@ -29,17 +42,6 @@
                         </tr>
                     </tbody>
                 </table>
-            </div>
-            <div class="card-grid d-flex flex-column col align-items-center justify-content-md-center justify-content-start mt-md-0 mt-5">
-                <div class="memory-game card-container mt-md-3 mt-0">
-                    <MemoryCard
-                        v-for="(card, index) in randomizeArray"
-                        :key="index"
-                        :image="card.image"
-                        :data-card="card.data"
-                        @click="flipCard(card.data, $event)"
-                    />
-                </div>
             </div>
         </div>
     </div>
@@ -85,6 +87,7 @@ export default {
             startedGame: false,
             clicked: 0,
             allScores: [],
+            isGame: true
         };
     },
 
@@ -216,6 +219,11 @@ export default {
                 });
             });
         },
+
+        toggleLb() {
+            console.log(this.isGame);
+            this.isGame ? this.isGame = false : this.isGame = true
+        }
     },
 };
 </script>>

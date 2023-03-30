@@ -40,7 +40,7 @@ export default {
         formattedTime() {
             // If startTime is false, display "00:00.000"
             if (!this.startTime) {
-                return "00:00.000";
+                return "00:00:000";
             }
 
             // Calculate time elapsed in milliseconds
@@ -60,7 +60,7 @@ export default {
                 ("0" + minutes).slice(-2) +
                 ":" +
                 ("0" + seconds).slice(-2) +
-                "." +
+                ":" +
                 ("00" + milliseconds).slice(-3)
             );
         },
