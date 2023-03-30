@@ -1,13 +1,13 @@
 <template>
     <div class="page-container container-fluid">
         <div class="top-page-container  mt-5 d-flex justify-content-md-around row flex-column flex-md-row">
-            <div class="button-container col d-flex justify-content-center mt-4 mt-md-0">
+            <div class="button-container col d-flex justify-content-center mt-md-0">
                     <button class="lb-button text-light w-50 h-100" @click="toggleLb()">Leaderboard</button>
                 </div>
-            <span class="timer d-flex justify-content-center col">
+            <span class="timer d-flex justify-content-center col mt-md-0 mt-2">
                 <Stopwatch ref="stopwatch" :start="startedGame" v-if="isGame"></Stopwatch>
             </span>
-            <div class="button-container col d-flex justify-content-center mt-4 mt-md-0">
+            <div class="button-container col d-flex justify-content-center mt-2 mt-md-0">
                 <button class="reset-btn text-light w-50 h-100" @click="resetGame()" v-if="isGame">Reset</button>
             </div>
         </div>
@@ -23,7 +23,7 @@
                         />
                     </div>
                 </div>
-            <div class="highscores-container d-md-flex flex-column justify-content-center align-items-center col-3 ms-5 d-none" v-else>
+            <div class="highscores-container d-md-flex flex-column justify-content-center align-items-center col-3 ms-5 table-responsive" v-else>
                 <table class="table align-middle highscore-table mt-5">
                     <thead class="thead">
                         <tr>
@@ -221,7 +221,10 @@ export default {
         },
 
         toggleLb() {
-            console.log(this.isGame);
+            if(this.$refs.stopwatch != null) {
+                this.resetGame();
+                this.startedGame = false;
+            }
             this.isGame ? this.isGame = false : this.isGame = true
         }
     },
