@@ -23,7 +23,7 @@
                         />
                     </div>
                 </div>
-            <div class="highscores-container d-md-flex flex-column justify-content-center align-items-center col-3 ms-5 table-responsive" v-else>
+            <div class="highscores-container d-md-flex flex-column justify-content-center align-items-center col-6 col-md-3 ms-md-5 table-responsive" v-else>
                 <table class="table align-middle highscore-table mt-5">
                     <thead class="thead">
                         <tr>
