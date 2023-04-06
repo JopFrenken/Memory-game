@@ -18,9 +18,8 @@
         <div id="app">
             <app></app>
         </div>
-        <script src="{{ asset('public/js/app.js') }}"></script>
-		<link rel="stylesheet" href="{{ asset('public/css/app.css') }}">
-
+        <script src="{{ mix('js/app.js') }}"></script>
+        <link rel="stylesheet" href="{{ mix('/css/app.css') }}">
     </body>
 </body>
 

@@ -14,7 +14,7 @@ const mix = require('laravel-mix');
 mix.setPublicPath('public');
 mix.js('resources/js/app.js', 'public/js')
     .vue()
-    // .sass('resources/sass/app.scss', 'public/css')?
+    .sass('resources/scss/app.scss', 'public/css')
     .webpackConfig({
         devServer: {
             port: 8080,
