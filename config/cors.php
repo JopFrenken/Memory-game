@@ -19,7 +19,7 @@ return [
 
     'allowed_methods' => ['*'],
 
-    'allowed_origins' => ['*'],
+    'allowed_origins' => ['https://87734.hosting.ict-college.net'],
 
     'allowed_origins_patterns' => [],
 
