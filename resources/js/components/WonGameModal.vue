@@ -47,7 +47,7 @@ export default {
         };
     },
 
-    methods: {
+    methods: { // calls send-data method
         saveScore() {
             if (this.name !== "") {
                 this.$emit("send-data", this.name);
